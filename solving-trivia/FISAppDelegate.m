@@ -9,6 +9,18 @@
     return YES;
 }
 
+- (NSString *)solveTrivia {
+    NSString *capital;
+    for (NSString *state in [[self statesCapitals] allKeys]) {
+        capital = [[[self statesCapitals] objectForKey:state] lowercaseString];
+        if ([capital isEqualToString:[[capital componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:[state lowercaseString]]] componentsJoinedByString:@""]]) {
+            return state;
+        }
+    }
+    
+    return nil;
+}
+
 - (NSDictionary *)statesCapitals {
 
     return @{
