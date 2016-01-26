@@ -9,6 +9,50 @@
     return YES;
 }
 
+- (NSString *)solveTrivia {
+    NSString *capital;
+    for (NSString *state in [[self statesCapitals] allKeys]) {
+        capital = [[[self statesCapitals] objectForKey:state] lowercaseString];
+        if ([capital isEqualToString:[[capital componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:[state lowercaseString]]] componentsJoinedByString:@""]]) {
+            return state;
+        }
+    }
+    
+    return nil;
+}
+
++ (NSString *)stringFromCharacterSet:(NSCharacterSet *)characterSet
+{
+    unichar unicharBuffer[20];
+    int index = 0;
+    
+    for (unichar uc = 0; uc < (0xFFFF); uc ++)
+    {
+        if ([characterSet characterIsMember:uc])
+        {
+            unicharBuffer[index] = uc;
+            
+            index ++;
+            
+            if (index == 20)
+            {
+                NSString * characters = [NSString stringWithCharacters:unicharBuffer length:index];
+                NSLog(@"%@", characters);
+                
+                index = 0;
+            }
+        }
+    }
+    
+    if (index != 0)
+    {
+        NSString * characters = [NSString stringWithCharacters:unicharBuffer length:index];
+        return characters;
+    }
+    
+    return @"";
+}
+
 - (NSDictionary *)statesCapitals {
 
     return @{
